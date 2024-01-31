@@ -1,0 +1,14 @@
+const express = require('express')
+const router = express.Router()
+var customerController = require('../controllers/customer-controller.js');
+  
+router.route("/customer")
+    .get(customerController.test)
+    .post(customerController.addCustomer)
+
+router.use(function(req, res) {
+    res.status(404).send({url: req.originalUrl + ' not found'})
+});
+
+module.exports = router
+

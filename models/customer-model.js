@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const uniqueValidator = require('mongoose-unique-validator');
-const saltRounds = 10;
 
-const userSchema = new mongoose.Schema({
+const customerSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
@@ -35,18 +32,5 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-userSchema.plugin(uniqueValidator);
 
-userSchema.pre('save', async function (next) {
-    if (this.isModified('password') || this.isNew) {
-        try {
-            const salt = await bcrypt.genSalt(saltRounds);
-            this.password = await bcrypt.hash(this.password, salt);
-        } catch (err) {
-            return next(err);
-        }
-    }
-    next();
-});
-
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Customer', customerSchema, 'customers');
