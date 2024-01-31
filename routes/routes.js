@@ -3,7 +3,7 @@ const router = express.Router()
 var customerController = require('../controllers/customer-controller.js');
   
 router.route("/customer")
-    .get(customerController.test)
+    .get(customerController.getAllCustomers)
     .post(customerController.addCustomer)
 
 router.use(function(req, res) {
