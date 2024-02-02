@@ -6,6 +6,9 @@ router.route("/customer")
     .get(customerController.getAllCustomers)
     .post(customerController.addCustomer)
 
+router.route("/customer/:_id")
+    .get(customerController.getCustomer)
+
 router.use(function(req, res) {
     res.status(404).send({url: req.originalUrl + ' not found'})
 });
