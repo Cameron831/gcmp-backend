@@ -9,6 +9,9 @@ router.route("/customer")
 router.route("/customer/:_id")
     .get(customerController.getCustomer)
 
+router.route("/customer/login")
+    .post(customerController.verifyLogin)
+
 router.use(function(req, res) {
     res.status(404).send({url: req.originalUrl + ' not found'})
 });
