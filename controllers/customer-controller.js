@@ -55,3 +55,12 @@ exports.verifyLogin = async (req, res) => {
     res.status(500).send({message: "An error occured"})
   }
 }
+
+exports.updateCustomer = async function(req, res) {
+  try {
+    const updatedCustomer = await Customer.findByIdAndUpdate(req.params._id, req.body, {new:true});
+    res.status(200).json(updatedCustomer);
+  } catch (err) {
+    res.status(500).send({message: 'An error occurred updating customer.'});
+  }  
+}
