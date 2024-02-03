@@ -8,6 +8,7 @@ router.route("/customer")
 
 router.route("/customer/:_id")
     .get(customerController.getCustomer)
+    .put(customerController.updateCustomer)
 
 router.route("/customer/login")
     .post(customerController.verifyLogin)
