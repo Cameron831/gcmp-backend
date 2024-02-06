@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
-const saltRounds = 10;
+const saltRounds = 10
 
 const customerSchema = new mongoose.Schema({
     username: {
@@ -32,7 +32,7 @@ const customerSchema = new mongoose.Schema({
             message: 'Invalid email format'
         }
     }
-});
+})
 
 customerSchema.pre('save', function(next) {
     if(this.isModified('password') || this.isNew) {
