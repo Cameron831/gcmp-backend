@@ -27,4 +27,4 @@ const billingAddressSchema= new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('BillingAddress', billingAddressSchema, 'billingAddress')
+module.exports = mongoose.model('BillingAddress', billingAddressSchema, 'billing-address')

@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const customerController = require('../controllers/customer-controller.js');
 const teetimeController = require('../controllers/teetime-controller.js')
+const paymentMethodController = require('../controllers/payment-method.controller.js')
   
 //                 //
 // Customer Routes //
@@ -22,6 +23,13 @@ router.route("/customer/login")
 //                 //
 router.route("/teetimes")
 .get(teetimeController.getAllTeetimes)
+
+
+//                       //
+// Payment method routes //
+//                       //
+router.route("/payment-method")
+.post(paymentMethodController.addPaymentMethod)
 
 // Handle url not found
 router.use(function(req, res) {
