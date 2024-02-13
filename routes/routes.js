@@ -1,8 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const customerController = require('../controllers/customer-controller.js');
+const customerController = require('../controllers/customer-controller.js')
 const teetimeController = require('../controllers/teetime-controller.js')
 const paymentMethodController = require('../controllers/payment-method.controller.js')
+const reservationController = require('../controllers/reservation-controller.js')
   
 //                 //
 // Customer Routes //
@@ -21,8 +22,16 @@ router.route("/customer/login")
 //                 //
 // Tee time routes //
 //                 //
-router.route("/teetimes")
+router.route("/teetime")
 .get(teetimeController.getAllTeetimes)
+.post(teetimeController.addTeetime)
+
+
+//                    //
+// Reservation Routes //
+//                    //
+router.route("/reservation")
+.post(reservationController.addReservation)
 
 
 //                       //
