@@ -5,6 +5,7 @@ const teetimeController = require('../controllers/teetime-controller.js')
 const paymentMethodController = require('../controllers/payment-method.controller.js')
 const reservationController = require('../controllers/reservation-controller.js')
 const transactionController = require('../controllers/transaction-controller.js')
+const itemController = require('../controllers/item-controller.js')
   
 //                 //
 // Customer Routes //
@@ -47,6 +48,13 @@ router.route("/payment-method")
 router.route("/transaction")
 .get(transactionController.getAllTransactions)
 .post(transactionController.addTransaction)
+
+//             //
+// Item routes //
+//             //
+router.route("/item")
+.get(itemController.getAllItems)
+.post(itemController.addItem)
 
 // Handle url not found
 router.use(function(req, res) {
