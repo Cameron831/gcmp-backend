@@ -5,6 +5,7 @@ const teetimeController = require('../controllers/teetime-controller.js')
 const paymentMethodController = require('../controllers/payment-method.controller.js')
 const reservationController = require('../controllers/reservation-controller.js')
 const transactionController = require('../controllers/transaction-controller.js')
+const transactionItemController = require('../controllers/transaction-item-controller.js')
 const itemController = require('../controllers/item-controller.js')
   
 //                 //
@@ -48,6 +49,12 @@ router.route("/payment-method")
 router.route("/transaction")
 .get(transactionController.getAllTransactions)
 .post(transactionController.addTransaction)
+
+//                         //
+// Transaction Item routes //
+//                         //
+router.route("/transaction-item")
+.post(transactionItemController.addTransactionItem)
 
 //             //
 // Item routes //
