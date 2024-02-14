@@ -29,6 +29,8 @@ router.route("/teetime")
 .get(teetimeController.getAllTeetimes)
 .post(teetimeController.addTeetime)
 
+router.route("/teetime/reserve/:_id")
+.put(teetimeController.reserveTeeTime)
 
 //                    //
 // Reservation Routes //

@@ -12,6 +12,11 @@ const teetimeSchema = new mongoose.Schema({
     numberOfPlayers: {
         type: Number,
         required: true
+    },
+    reserved: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 })
 
