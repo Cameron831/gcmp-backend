@@ -7,6 +7,6 @@ exports.addReservation = async (req, res) => {
         const savedReservation = await newReservation.save()
          res.status(201).json(savedReservation)
     } catch (error) {
-        res.status(500).send({message: 'An error occurred while adding the customer: ' + error})
+        res.status(500).send({message: 'An error occurred while adding the reservation: ' + error})
     }
 }

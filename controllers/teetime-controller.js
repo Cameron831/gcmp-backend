@@ -16,6 +16,6 @@ exports.addTeetime = async (req, res) => {
         const savedTeetime = await newTeetime.save()
          res.status(201).json(savedTeetime)
     } catch (error) {
-        res.status(500).send({message: 'An error occurred while adding the customer: ' + error})
+        res.status(500).send({message: 'An error occurred while adding the teetime: ' + error})
     }
 }
