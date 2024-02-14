@@ -32,7 +32,7 @@ exports.getCustomer = async (req, res) => {
         res.status(404).send({message: 'Customer not found.'})
       }
     } catch (err) {
-      res.status(500).send({message: 'An error occurred retrieving user.'})
+      res.status(500).send({message: 'An error occurred retrieving customer.'})
     }
 }
 
