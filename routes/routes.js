@@ -45,6 +45,13 @@ router.route("/reservation")
 router.route("/payment-method")
 .post(paymentMethodController.addPaymentMethod)
 
+router.route("/payment-method/:_id")
+.get(paymentMethodController.getPaymentMethod)
+.delete(paymentMethodController.deletePaymentMethod)
+
+router.route("/customer/payment-method/:customer_id")
+.get(paymentMethodController.getCustomerPaymentMethods)
+
 //                    //
 // Transaction routes //
 //                    //
