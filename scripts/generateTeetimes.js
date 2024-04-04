@@ -10,39 +10,33 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 
-const generateTeetimesForNextMonth = () => {
-  const teetimes = [];
-  const now = startOfToday();
-  const end = addDays(now, 30); // Adjust the number of days as needed
-
-  for (let day = now; day <= end; day = addDays(day, 1)) {
-    for (let hour = 7; hour <= 17; hour++) {
-      let time = setHours(day, hour);
-      if (hour === 17) { // For the 5 PM slot
-        teetimes.push(createTeetimeDocument(time));
-      } else {
-        for (let minute = 0; minute < 60; minute += 10) {
+  const generateTeetimesForNextMonth = () => {
+    const teetimes = [];
+    const now = startOfToday();
+    const end = addDays(now, 30); // Generates teetimes for the next 30 days
+  
+    for (let day = now; day <= end; day = addDays(day, 1)) {
+      for (let hour = 0; hour < 24; hour++) { // Start from 0 to 23 hours
+        for (let minute = 0; minute < 60; minute += 10) { // Generate teetimes every 10 minutes
+          let time = setHours(day, hour);
           time = setMinutes(time, minute);
           teetimes.push(createTeetimeDocument(time));
         }
       }
     }
-  }
-
-  return teetimes;
-};
-
-const createTeetimeDocument = (time) => {
-  return {
-    date: time,
-    // Assuming default values for players. Adjust as necessary.
-    playerOne: {},
-    playerTwo: {},
-    playerThree: {},
-    playerFour: {},
-    numberOfPlayers: 0
+  
+    return teetimes;
   };
-};
+  
+
+  const createTeetimeDocument = (time) => {
+    return {
+      date: time,
+      players: [],
+      numberOfPlayers: 0
+    };
+  };
+  
 
 const insertTeetimesIntoDatabase = async (teetimes) => {
   try {
