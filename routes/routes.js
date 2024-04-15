@@ -29,11 +29,20 @@ router.route("/teetime")
 .get(teetimeController.getAllTeetimes)
 .post(teetimeController.addTeetime)
 
+router.route("/teetime/:_id")
+.put(teetimeController.updateTeeTime)
+
+router.route("/teetime/:_id/:player")
+.post(teetimeController.playerPaid)
+
 router.route("/teetimes")
 .get(teetimeController.getTeetimesForSelectedDate);
 
 router.route("/teetime/reserve/:_id")
 .put(teetimeController.reserveTeeTime)
+
+router.route("/teetime/reserve/:_id/:player")
+.put(teetimeController.deletePlayer)
 
 //                    //
 // Reservation Routes //

@@ -63,3 +63,58 @@ exports.getTeetimesForSelectedDate = async function (req, res) {
         res.status(500).send({message: 'An error occurred while getting teetimes for the selected date: ' + error});
     }
 };
+
+exports.deletePlayer = async function (req, res) {
+    try {
+        const teetime = await Teetime.findById(req.params._id);
+        const playerID = req.params.player
+        const updatedPlayers = teetime.players.filter(player => player._id.toString() !== playerID);
+        teetime.players = updatedPlayers;
+        teetime.numberOfPlayers = updatedPlayers.length;
+        await teetime.save();
+        res.status(200).json(teetime);
+    } catch (error) {
+        res.status(500).send({message: 'An error occurred while updating player: ' + error});
+    }
+}
+
+exports.playerPaid = async function (req, res) {
+    try {
+        // Assuming you have some debug info to log, make sure the variable is defined
+        const debugInfo = 'Starting playerPaid function';
+        console.log(debugInfo);
+
+        // Find teetime by ID provided in request parameters
+        const teetime = await Teetime.findById(req.params._id);
+        if (!teetime) {
+            return res.status(404).send({ message: 'Teetime not found.' });
+        }
+
+        // Find player by ID within the teetime's players array
+        const playerID = req.params.player;
+        const player = teetime.players.find(player => player._id.toString() === playerID);
+        if (!player) {
+            return res.status(404).send({ message: 'Player not found.' });
+        }
+
+        // Example: Update player paid status and save
+        player.paid = true;  // assuming 'paid' is a boolean field
+        await teetime.save();
+
+        console.log('Player updated:', player);
+        res.send({ message: 'Player payment status updated.', player });
+    } catch (error) {
+        console.error('An error occurred while updating player:', error);
+        res.status(500).send({ message: 'An error occurred while updating player.' });
+    }
+};
+
+
+exports.updateTeeTime = async function (req, res) {
+    try {
+        const updatedTeetime = await Teetime.findByIdAndUpdate(req.params._id, req.body, {new:true});
+        res.status(200).json(updatedTeetime);
+    } catch (error) {
+        res.status(500).send({message: 'An error occurred updating teetime.'});
+    }
+}
