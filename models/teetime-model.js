@@ -5,7 +5,8 @@ const playerSchema = new mongoose.Schema({
   lastname: { type: String, default: "" },
   riding: { type: Boolean, default: false },
   paid: { type: Boolean, default: false },
-  nine: { type: Boolean, default: false }
+  nine: { type: Boolean, default: false },
+  checkedIn: {type: Boolean, default: false}
 });
 
 const teetimeSchema = new mongoose.Schema({

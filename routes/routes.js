@@ -35,6 +35,9 @@ router.route("/teetime/:_id")
 router.route("/teetime/:_id/:player")
 .post(teetimeController.playerPaid)
 
+router.route("/teetime/check-in/:_id/:player")
+.post(teetimeController.playerCheckedIn)
+
 router.route("/teetimes")
 .get(teetimeController.getTeetimesForSelectedDate);
 
