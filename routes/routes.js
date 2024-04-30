@@ -53,6 +53,9 @@ router.route("/teetime/reserve/:_id/:player")
 router.route("/reservation")
 .post(reservationController.addReservation)
 
+router.route("/reservation/:_id")
+.get(reservationController.getReservations)
+
 
 //                       //
 // Payment method routes //
