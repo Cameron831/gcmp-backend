@@ -4,7 +4,7 @@ require('dotenv').config();
 const cors = require('cors'); // Import CORS module
 
 const app = express()
-const PORT = 3001; 
+const PORT = process.env.PORT || 3001; 
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
@@ -17,17 +17,17 @@ mongoose.connect(uri)
 
 
 app.use(cors({
-    origin: 'http://localhost:3000' // Allow all domains/origins or specify to restrict
+    origin: '*' // Allow all domains/origins or specify to restrict
 }));
 
-//import route
+//import routes
 var route = require('./routes/routes.js')
 app.use('/', route)
 
   
 app.listen(PORT, (error) =>{ 
     if(!error) 
-        console.log("Server is Successfully Running http://localhost:"+ PORT) 
+        console.log("Server is Successfully Running On Port: "+ PORT) 
     else 
         console.log("Error occurred, server can't start", error)
     } 
