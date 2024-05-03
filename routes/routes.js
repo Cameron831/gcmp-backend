@@ -29,6 +29,12 @@ router.route("/teetime")
 .get(teetimeController.getAllTeetimes)
 .post(teetimeController.addTeetime)
 
+router.route("/cancel/:_id")
+.post(teetimeController.cancelReservation)
+
+router.route("/pay/:_id")
+.post(teetimeController.payForReservation)
+
 router.route("/teetime/:_id")
 .put(teetimeController.updateTeeTime)
 

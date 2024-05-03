@@ -1,4 +1,5 @@
 Teetime = require('../models/teetime-model')
+Reservation = require('../models/reservation-model')
 var ObjectID = require('mongodb').ObjectID
 const { startOfDay, endOfDay } = require('date-fns');
 
@@ -112,7 +113,7 @@ exports.playerPaid = async function (req, res) {
 
         res.send({ message: 'Player payment status updated.', player });
     } catch (error) {
-        res.status(500).send({ message: 'An error occurred while updating player.' });
+        res.status(500).send({ message: 'An error occurred while updating asdadasd.' });
     }
 };
 
@@ -151,5 +152,43 @@ exports.updateTeeTime = async function (req, res) {
         res.status(200).json(updatedTeetime);
     } catch (error) {
         res.status(500).send({message: 'An error occurred updating teetime.'});
+    }
+}
+
+exports.cancelReservation = async function(req, res) {
+    try {
+        const account = req.body
+        const teetime = await Teetime.findById(req.params._id);
+        const updatedPlayers = teetime.players.filter(player => player.firstname + player.lastname !== account.firstName + account.lastName)
+        teetime.players = updatedPlayers;
+        teetime.numberOfPlayers = updatedPlayers.length;
+        await teetime.save();
+        const doc = await Reservation.findOneAndDelete({
+            "teetime_id": req.params._id,
+            "customer_id": account._id
+        });
+        if (!doc) {
+            return res.status(404).send({ message: "Reservation not found." });
+        }
+        res.status(200).json(teetime);
+    } catch (error) {
+        console.log("test")
+        res.status(500).send({message: 'An error occurred updating teetime.'});
+    }
+}
+
+exports.payForReservation = async function(req, res) {
+    try {
+        const account = req.body
+        const teetime = await Teetime.findById(req.params._id);
+        teetime.players.forEach(player => {
+            if ((player.firstname + player.lastname).toLowerCase() === (account.firstName + account.lastName).toLowerCase()) {
+                player.paid = true;
+            }
+        });
+        await teetime.save();
+        res.status(200).json(teetime);
+    } catch (error) {
+        res.status(500).send({message: 'An error occurred updating teetime.', error});
     }
 }
